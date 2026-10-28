@@ -21,7 +21,7 @@ Requiere Node.js 22 o superior. No hay dependencias de build.
 npm run build
 ```
 
-La salida es `dist/`, con `index.html`, `404.html`, `_headers`, `robots.txt` y los dos recursos `brandbook-refinements.*`. El HTML fuente original se conserva; el build inserta las mejoras visuales e interactivas en la copia publicada.
+La salida es `dist/`, con `index.html`, `404.html`, `_headers`, `robots.txt` y los dos recursos `brandbook-refinements.*`. El HTML fuente original se conserva intacto. En la copia publicada, el build inserta las mejoras visuales e interactivas y omite la lista final «Base documental», porque sus títulos no enlazan a los documentos descargables.
 
 ## Ajustes visuales e interacción
 
