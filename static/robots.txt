@@ -1,0 +1,4 @@
+# Review edition. Install only for a dedicated standalone host.
+# Do not replace kerai.es root robots.txt with this file.
+User-agent: *
+Disallow: /

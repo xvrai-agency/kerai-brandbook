@@ -1,0 +1,9 @@
+{
+  "name": "kerai-brandbook",
+  "version": "2.1.0",
+  "private": true,
+  "description": "KERAI Brandbook Provisional - standalone edition",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": { "build": "node scripts/build.mjs" }
+}
