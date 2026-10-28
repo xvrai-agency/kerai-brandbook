@@ -65,10 +65,10 @@
   outline-offset: 4px;
 }
 
-.value-map-hint {
+.value-map p.value-map-hint {
   margin: 9px 0 4px;
   color: #c9beb4;
-  font-size: 12px;
+  font-size: 12px !important;
   line-height: 1.45;
 }
 
