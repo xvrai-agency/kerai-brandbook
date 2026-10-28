@@ -1,4 +1,4 @@
-import { readFile, mkdir, rm, copyFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rm, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -21,10 +21,15 @@ if (html.length > 25 * 1024 * 1024) throw new Error('El HTML supera el limite co
 const dist = resolve(root, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
-await copyFile(source, resolve(dist, 'index.html'));
-for (const name of ['404.html', '_headers', 'robots.txt']) {
+const page = text
+  .replace('</head>', '  <link rel="stylesheet" href="/brandbook-refinements.css">\n</head>')
+  .replace('</body>', '  <script src="/brandbook-refinements.js"></script>\n</body>');
+if (page === text) throw new Error('No s’han pogut inserir els ajustos del brandbook.');
+await writeFile(resolve(dist, 'index.html'), page, 'utf8');
+for (const name of ['404.html', '_headers', 'robots.txt', 'brandbook-refinements.css', 'brandbook-refinements.js']) {
   await copyFile(resolve(root, 'static', name), resolve(dist, name));
 }
-console.log(`Brandbook copiado sin modificar: ${html.length} bytes.`);
-console.log(`SHA-256: ${createHash('sha256').update(html).digest('hex')}`);
-console.log('Build terminado: dist/');
+console.log(`Fuente original conservada: ${html.length} bytes.`);
+console.log(`SHA-256 de origen: ${createHash('sha256').update(html).digest('hex')}`);
+console.log('Ajustos de marca, interacción y fotografías insertados en dist/.');
+

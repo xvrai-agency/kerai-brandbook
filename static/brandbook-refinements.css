@@ -1,0 +1,197 @@
+/* KERAI visual refinements: thin brand typography, paired map states, real finishes. */
+#page-marca .hero-copy h1 {
+  font-weight: 300;
+}
+
+#page-marca .hero-copy h1 span {
+  color: inherit;
+}
+
+.value-map .value-node,
+.value-map .value-top-node {
+  color: #f3f1ed;
+  border-color: rgba(226, 206, 183, 0.42);
+  background-color: rgba(255, 255, 255, 0.025);
+  transition: color 220ms ease, background-color 220ms ease, border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.value-map #value-copy [data-value-term] {
+  color: inherit;
+  border: 0;
+  padding: 2px 1px;
+  background: transparent;
+  text-decoration: underline;
+  text-decoration-color: rgba(245, 126, 32, 0.62);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.19em;
+  cursor: pointer;
+  transition: color 220ms ease, background-color 220ms ease, box-shadow 220ms ease,
+    text-decoration-color 220ms ease;
+}
+
+.value-map #value-copy [data-value-term="care"] {
+  color: inherit;
+  border: 0;
+  background: transparent;
+}
+
+.value-map [data-value-node],
+.value-map #value-copy [data-value-term] {
+  cursor: pointer;
+}
+
+.value-map .value-node.is-active,
+.value-map #value-copy [data-value-term].is-active {
+  color: #ffd6b3;
+}
+
+.value-map .value-node.is-active {
+  border-color: var(--brand-amber, #f57e20);
+  background: rgba(239, 77, 35, 0.13);
+  box-shadow: 0 0 0 1px rgba(245, 126, 32, 0.14), 0 0 22px rgba(239, 77, 35, 0.09);
+}
+
+.value-map #value-copy [data-value-term].is-active {
+  border-radius: 2px;
+  background: rgba(239, 77, 35, 0.2);
+  box-shadow: inset 0 -2px 0 var(--brand-amber, #f57e20);
+  text-decoration: none;
+}
+
+.value-map [data-value-node]:focus-visible,
+.value-map #value-copy [data-value-term]:focus-visible {
+  outline: 2px solid var(--brand-amber, #f57e20);
+  outline-offset: 4px;
+}
+
+.value-map-hint {
+  margin: 9px 0 4px;
+  color: #c9beb4;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.value-map .value-connectors path {
+  transition: opacity 220ms ease, stroke 220ms ease, stroke-width 220ms ease;
+}
+
+.value-map[data-active-value] .value-connectors path[data-connection] {
+  opacity: 0.18;
+}
+
+.value-map[data-active-value] .value-connectors circle[data-connection] {
+  opacity: 0.18;
+  transition: opacity 220ms ease, fill 220ms ease;
+}
+
+.value-map[data-active-value="know"] .value-connectors path[data-connection="know"],
+.value-map[data-active-value="tech"] .value-connectors path[data-connection="tech"],
+.value-map[data-active-value="science"] .value-connectors path[data-connection="science"],
+.value-map[data-active-value="zeit"] .value-connectors path[data-connection="zeit"],
+.value-map[data-active-value="design"] .value-connectors path[data-connection="design"],
+.value-map[data-active-value="care"] .value-connectors path[data-connection="care"] {
+  opacity: 1;
+  stroke: var(--brand-amber, #f57e20);
+  stroke-width: 1.8;
+}
+
+.value-map[data-active-value="know"] .value-connectors circle[data-connection="know"],
+.value-map[data-active-value="tech"] .value-connectors circle[data-connection="tech"],
+.value-map[data-active-value="science"] .value-connectors circle[data-connection="science"],
+.value-map[data-active-value="zeit"] .value-connectors circle[data-connection="zeit"],
+.value-map[data-active-value="design"] .value-connectors circle[data-connection="design"],
+.value-map[data-active-value="care"] .value-connectors circle[data-connection="care"] {
+  opacity: 1;
+  fill: var(--brand-amber, #f57e20);
+}
+
+.kerai-material-reference {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line, #d5d2c9);
+}
+
+.kerai-material-reference-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.kerai-material-reference-heading h4 {
+  font-size: 20px;
+}
+
+.kerai-material-reference-heading a {
+  color: var(--muted, #66645d);
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.kerai-material-reference-heading a:hover {
+  color: var(--accent, #b44826);
+}
+
+.kerai-material-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.kerai-material-card {
+  min-width: 0;
+}
+
+.kerai-material-card img {
+  width: 100%;
+  aspect-ratio: 1.35;
+  object-fit: cover;
+  object-position: center;
+  background: #27221f;
+}
+
+.kerai-material-card figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 8px;
+  color: var(--ink, #252521);
+  font-size: 13px;
+}
+
+.kerai-material-card figcaption small {
+  color: var(--muted, #66645d);
+  font-size: 11px;
+}
+
+@media (max-width: 700px) {
+  .kerai-material-grid {
+    gap: 9px;
+  }
+
+  .kerai-material-card figcaption {
+    display: block;
+    font-size: 12px;
+  }
+
+  .kerai-material-card figcaption small {
+    display: block;
+    margin-top: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .value-map .value-node,
+  .value-map #value-copy [data-value-term],
+  .value-map .value-connectors path {
+    transition: none;
+  }
+
+  .value-map .value-connectors circle {
+    transition: none;
+  }
+}
