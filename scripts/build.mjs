@@ -18,13 +18,20 @@ for (const marker of ['lang="es"', 'window.KERAI_DATA', 'noindex', 'https://use.
 }
 if (html.length > 25 * 1024 * 1024) throw new Error('El HTML supera el limite configurado de 25 MiB.');
 
+const bibliographyPattern = /<div class="source-documents"><h3>Base documental<\/h3>[\s\S]*?<\/div>/g;
+const bibliographyMatches = text.match(bibliographyPattern) ?? [];
+if (bibliographyMatches.length !== 1) {
+  throw new Error(`Se esperaba una única sección final Base documental; encontradas: ${bibliographyMatches.length}.`);
+}
+const publishableText = text.replace(bibliographyPattern, '');
+
 const dist = resolve(root, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
-const page = text
+const page = publishableText
   .replace('</head>', '  <link rel="stylesheet" href="/brandbook-refinements.css">\n</head>')
   .replace('</body>', '  <script src="/brandbook-refinements.js"></script>\n</body>');
-if (page === text) throw new Error('No s’han pogut inserir els ajustos del brandbook.');
+if (page === publishableText) throw new Error('No s’han pogut inserir els ajustos del brandbook.');
 await writeFile(resolve(dist, 'index.html'), page, 'utf8');
 for (const name of ['404.html', '_headers', 'robots.txt', 'brandbook-refinements.css', 'brandbook-refinements.js']) {
   await copyFile(resolve(root, 'static', name), resolve(dist, name));
@@ -32,4 +39,5 @@ for (const name of ['404.html', '_headers', 'robots.txt', 'brandbook-refinements
 console.log(`Fuente original conservada: ${html.length} bytes.`);
 console.log(`SHA-256 de origen: ${createHash('sha256').update(html).digest('hex')}`);
 console.log('Ajustos de marca, interacción y fotografías insertados en dist/.');
+console.log('Se omitió la lista final Base documental: no enlazaba a los documentos descargables.');
 
