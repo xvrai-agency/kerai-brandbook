@@ -1,8 +1,24 @@
 <!-- HTML · añadir dentro de <head> -->
 <link rel="stylesheet" href="https://use.typekit.net/yqf6rur.css">
 
-/* CSS · aplicar la tipografía */
+/* CSS · aplicar Abacaxi y la jerarquía KERAI */
+:root {
+  --kerai-font: "abacaxi-latin-variable", "abacaxi-latin", Arial, Helvetica, sans-serif;
+}
+
 body {
-  font-family: "abacaxi-latin-variable", "abacaxi-latin", Arial, Helvetica, sans-serif;
+  font-family: var(--kerai-font);
   font-weight: 400;
+}
+
+.kerai-title,
+.product-descriptor {
+  font-family: var(--kerai-font);
+  font-weight: 300;
+}
+
+.kerai-label,
+.technical-label {
+  font-family: var(--kerai-font);
+  font-weight: 500;
 }

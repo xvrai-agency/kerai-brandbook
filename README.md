@@ -28,7 +28,8 @@ La salida es `dist/`, con `index.html`, `404.html`, `_headers`, `robots.txt`, lo
 - La portada usa un peso tipográfico más ligero y mantiene el titular en un solo color.
 - En la propuesta de valor, cada concepto resalta junto a su frase correspondiente al pasar el cursor, enfocar con teclado o tocarlo. El mapa conserva el mismo acento ámbar en ambas partes.
 - La sección de materiales incorpora fotografías de cobre natural, bronce y aluminio natural de [kerai.es/acabados](https://kerai.es/acabados/). Se cargan desde las URLs públicas de `kerai.es`.
-- El bloque de Tipografía y Recursos incluye el código HTML/CSS para usar Abacaxi Latin Variable mediante el proyecto de Adobe Fonts de KERAI.
+- Tipografía establece 300 Light para titulares y descriptores, 400 Regular para lectura y 500 Medium para etiquetas y datos. Los nombres de colección y modelo conservan el tratamiento de exhibición del catálogo.
+- Tipografía y Recursos incluyen el código HTML/CSS para usar Abacaxi Latin Variable y reproducir esa jerarquía mediante el proyecto de Adobe Fonts de KERAI.
 
 La tipografía Abacaxi se sirve desde el proyecto Adobe Fonts autorizado por KERAI: `https://use.typekit.net/yqf6rur.css`. Si Adobe Fonts no está disponible, el contenido se presenta con fuentes de reserva.
 
