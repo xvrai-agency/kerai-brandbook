@@ -181,10 +181,7 @@
 }
 
 .type-standards-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
-  align-items: end;
-  gap: 26px;
+  display: block;
 }
 
 .type-standards-intro h3 {
@@ -193,26 +190,6 @@
   font-weight: 300;
   letter-spacing: -0.025em;
   line-height: 1.15;
-}
-
-.type-standards-intro p {
-  margin: 0;
-  color: var(--muted, #66645d);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.type-reference-link {
-  display: inline-block;
-  margin-top: 9px;
-  color: var(--muted, #66645d);
-  font-size: 11px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.type-reference-link:hover {
-  color: var(--accent, #b44826);
 }
 
 .type-weight-grid {
@@ -397,11 +374,6 @@
 
   .typekit-code-grid {
     grid-template-columns: 1fr;
-  }
-
-  .type-standards-intro {
-    grid-template-columns: 1fr;
-    gap: 12px;
   }
 
   .type-weight-grid {
