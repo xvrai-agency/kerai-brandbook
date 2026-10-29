@@ -18,12 +18,35 @@ for (const marker of ['lang="es"', 'window.KERAI_DATA', 'noindex', 'https://use.
 }
 if (html.length > 25 * 1024 * 1024) throw new Error('El HTML supera el limite configurado de 25 MiB.');
 
+const typekitFile = resolve(root, 'static/kerai-typekit-integration.txt');
+const typekitIntegration = (await readFile(typekitFile, 'utf8')).trim();
+const [typekitHeadCode, typekitCssCode] = typekitIntegration.split(/\r?\n\s*\r?\n/);
+if (!typekitHeadCode?.includes('use.typekit.net/yqf6rur.css') || !typekitCssCode?.includes('abacaxi-latin-variable')) {
+  throw new Error('El fragmento de integración de Typekit no contiene el kit y la familia tipográfica de KERAI.');
+}
+
 const bibliographyPattern = /<div class="source-documents"><h3>Base documental<\/h3>[\s\S]*?<\/div>/g;
-const bibliographyMatches = text.match(bibliographyPattern) ?? [];
+const bibliographyMarker = '<div class="source-documents"><h3>Base documental</h3>';
+const resourceMarkerIndex = text.indexOf(bibliographyMarker);
+if (resourceMarkerIndex < 0 || text.indexOf(bibliographyMarker, resourceMarkerIndex + bibliographyMarker.length) >= 0) {
+  throw new Error('No se encontró una única ubicación para el recurso de tipografía web.');
+}
+const resourceRow = '<div class="download-row typekit-resource-row"><div><h3>Tipografía web · Abacaxi</h3><p>Código de integración de Adobe Fonts / Typekit para proyectos web.</p></div><a class="text-action" href="/kerai-typekit-integration.txt" download>Descargar código TXT <svg aria-hidden="true" class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.45" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 16v4h14v-4"></path></svg></a></div>';
+const textWithResource = text.slice(0, resourceMarkerIndex) + resourceRow + text.slice(resourceMarkerIndex);
+const bibliographyMatches = textWithResource.match(bibliographyPattern) ?? [];
 if (bibliographyMatches.length !== 1) {
   throw new Error(`Se esperaba una única sección final Base documental; encontradas: ${bibliographyMatches.length}.`);
 }
-const publishableText = text.replace(bibliographyPattern, '');
+let publishableText = textWithResource.replace(bibliographyPattern, '');
+
+const escapeHtml = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const typekitGuide = `<div class="typekit-guide" aria-labelledby="typekit-guide-title"><div class="typekit-guide-heading"><div><span class="eyebrow">Integración web · Adobe Fonts / Typekit</span><h3 id="typekit-guide-title">Usar Abacaxi en proyectos web</h3></div></div><p>Añade el kit una vez dentro de <code>&lt;head&gt;</code> y aplica la familia desde tu CSS.</p><div class="typekit-code-grid"><section class="typekit-code-card"><div class="typekit-code-heading"><span class="eyebrow">HTML · dentro de &lt;head&gt;</span><button class="copy-button" data-copy="kerai-typekit-head">Copiar</button></div><pre><code id="kerai-typekit-head">${escapeHtml(typekitHeadCode)}</code></pre></section><section class="typekit-code-card"><div class="typekit-code-heading"><span class="eyebrow">CSS · aplicar Abacaxi</span><button class="copy-button" data-copy="kerai-typekit-css">Copiar</button></div><pre><code id="kerai-typekit-css">${escapeHtml(typekitCssCode)}</code></pre></section></div><p class="typekit-license-note">Para sitios de terceros, utiliza el proyecto de Adobe Fonts de su titular.</p></div>`;
+const typeSectionMarker = '</div>\n</div>\n<a class="next-chapter" href="#universo"';
+const typeSectionMarkerIndex = publishableText.indexOf(typeSectionMarker);
+if (typeSectionMarkerIndex < 0 || publishableText.indexOf(typeSectionMarker, typeSectionMarkerIndex + typeSectionMarker.length) >= 0) {
+  throw new Error('No se encontró una única ubicación para el bloque de integración tipográfica.');
+}
+publishableText = publishableText.slice(0, typeSectionMarkerIndex) + `</div>\n${typekitGuide}\n</div>\n<a class="next-chapter" href="#universo"` + publishableText.slice(typeSectionMarkerIndex + typeSectionMarker.length);
 
 const dist = resolve(root, 'dist');
 await rm(dist, { recursive: true, force: true });
@@ -33,11 +56,12 @@ const page = publishableText
   .replace('</body>', '  <script src="/brandbook-refinements.js"></script>\n</body>');
 if (page === publishableText) throw new Error('No s’han pogut inserir els ajustos del brandbook.');
 await writeFile(resolve(dist, 'index.html'), page, 'utf8');
-for (const name of ['404.html', '_headers', 'robots.txt', 'brandbook-refinements.css', 'brandbook-refinements.js']) {
+for (const name of ['404.html', '_headers', 'robots.txt', 'brandbook-refinements.css', 'brandbook-refinements.js', 'kerai-typekit-integration.txt']) {
   await copyFile(resolve(root, 'static', name), resolve(dist, name));
 }
 console.log(`Fuente original conservada: ${html.length} bytes.`);
 console.log(`SHA-256 de origen: ${createHash('sha256').update(html).digest('hex')}`);
 console.log('Ajustos de marca, interacción y fotografías insertados en dist/.');
 console.log('Se omitió la lista final Base documental: no enlazaba a los documentos descargables.');
+console.log('El código de integración de Typekit se incluye en Tipografía y Recursos.');
 

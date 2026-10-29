@@ -1,0 +1,8 @@
+<!-- HTML · añadir dentro de <head> -->
+<link rel="stylesheet" href="https://use.typekit.net/yqf6rur.css">
+
+/* CSS · aplicar la tipografía */
+body {
+  font-family: "abacaxi-latin-variable", "abacaxi-latin", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}

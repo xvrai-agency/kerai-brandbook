@@ -21,13 +21,14 @@ Requiere Node.js 22 o superior. No hay dependencias de build.
 npm run build
 ```
 
-La salida es `dist/`, con `index.html`, `404.html`, `_headers`, `robots.txt` y los dos recursos `brandbook-refinements.*`. El HTML fuente original se conserva intacto. En la copia publicada, el build inserta las mejoras visuales e interactivas y omite la lista final «Base documental», porque sus títulos no enlazan a los documentos descargables.
+La salida es `dist/`, con `index.html`, `404.html`, `_headers`, `robots.txt`, los recursos `brandbook-refinements.*` y `kerai-typekit-integration.txt`. El HTML fuente original se conserva intacto. En la copia publicada, el build inserta las mejoras visuales e interactivas, el bloque de integración Typekit en Tipografía y el TXT descargable en Recursos. También omite la lista final «Base documental», porque sus títulos no enlazan a los documentos descargables.
 
 ## Ajustes visuales e interacción
 
 - La portada usa un peso tipográfico más ligero y mantiene el titular en un solo color.
 - En la propuesta de valor, cada concepto resalta junto a su frase correspondiente al pasar el cursor, enfocar con teclado o tocarlo. El mapa conserva el mismo acento ámbar en ambas partes.
 - La sección de materiales incorpora fotografías de cobre natural, bronce y aluminio natural de [kerai.es/acabados](https://kerai.es/acabados/). Se cargan desde las URLs públicas de `kerai.es`.
+- El bloque de Tipografía y Recursos incluye el código HTML/CSS para usar Abacaxi Latin Variable mediante el proyecto de Adobe Fonts de KERAI.
 
 La tipografía Abacaxi se sirve desde el proyecto Adobe Fonts autorizado por KERAI: `https://use.typekit.net/yqf6rur.css`. Si Adobe Fonts no está disponible, el contenido se presenta con fuentes de reserva.
 

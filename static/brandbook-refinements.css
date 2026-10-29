@@ -168,6 +168,81 @@
   font-size: 11px;
 }
 
+.typekit-guide {
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line, #d5d2c9);
+}
+
+.typekit-guide-heading h3 {
+  margin-top: 8px;
+  font-size: 22px;
+}
+
+.typekit-guide > p {
+  max-width: 650px;
+  color: var(--muted, #66645d);
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.typekit-code-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.typekit-code-card {
+  min-width: 0;
+  padding: 16px;
+  color: #f3f1ed;
+  background: #222220;
+}
+
+.typekit-code-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(226, 206, 183, 0.26);
+  color: #c9beb4;
+}
+
+.typekit-code-heading .eyebrow {
+  color: inherit;
+  font-size: 10px;
+}
+
+.typekit-code-card .copy-button {
+  padding: 3px 0;
+  color: #f3f1ed;
+  font-size: 11px;
+}
+
+.typekit-code-card .copy-button:hover {
+  color: #f0b277;
+}
+
+.typekit-code-card pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.typekit-code-card code {
+  display: block;
+  color: inherit;
+  font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+}
+
+.typekit-guide > .typekit-license-note {
+  margin-top: 12px;
+  font-size: 11px;
+}
+
 @media (max-width: 700px) {
   .kerai-material-grid {
     gap: 9px;
@@ -181,6 +256,10 @@
   .kerai-material-card figcaption small {
     display: block;
     margin-top: 2px;
+  }
+
+  .typekit-code-grid {
+    grid-template-columns: 1fr;
   }
 }
 
