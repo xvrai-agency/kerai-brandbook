@@ -1,4 +1,12 @@
 /* KERAI visual refinements: thin brand typography, paired map states, real finishes. */
+@font-face {
+  font-family: "Cosi Azure";
+  src: url("/CosiAzure-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 #page-marca .hero-copy h1 {
   font-weight: 300;
 }
@@ -178,6 +186,15 @@
   margin-top: 34px;
   padding-top: 26px;
   border-top: 1px solid var(--line, #d5d2c9);
+}
+
+.type-specimen-cosia h3,
+.type-specimen-cosia .type-display,
+.type-specimen-cosia .type-alphabet,
+.type-specimen-cosia .type-numbers {
+  font-family: "Cosi Azure", var(--sans);
+  font-weight: 700;
+  font-synthesis: none;
 }
 
 .type-standards-intro {

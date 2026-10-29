@@ -40,6 +40,13 @@ if (bibliographyMatches.length !== 1) {
 let publishableText = textWithResource.replace(bibliographyPattern, '');
 
 const escapeHtml = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const abacaxiSpecimen = '<div class="type-record type-specimen"><div><span class="eyebrow">Tipografía</span><h3>Abacaxi</h3><p>Abacaxi Latin Variable</p></div><div><p class="type-display">La luz se piensa,<br/>se calibra, se siente.</p><p class="type-alphabet">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Ññ Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz</p><p class="type-numbers">0123456789 &amp; @ % + /</p></div></div>';
+const cosiAzureSpecimen = '<div class="type-record type-specimen type-specimen-cosia"><div><span class="eyebrow">Tipografía</span><h3>Cosi Azure</h3><p>Cosi Azure Bold · nombre de marca y producto web</p></div><div><p class="type-display">La luz se piensa,<br/>se calibra, se siente.</p><p class="type-alphabet">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Ññ Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz</p><p class="type-numbers">0123456789 &amp; @ % + /</p></div></div>';
+const abacaxiSpecimenIndex = publishableText.indexOf(abacaxiSpecimen);
+if (abacaxiSpecimenIndex < 0 || publishableText.indexOf(abacaxiSpecimen, abacaxiSpecimenIndex + abacaxiSpecimen.length) >= 0) {
+  throw new Error('No se encontró una única muestra de Abacaxi para insertar Cosi Azure antes.');
+}
+publishableText = publishableText.slice(0, abacaxiSpecimenIndex) + cosiAzureSpecimen + abacaxiSpecimen + publishableText.slice(abacaxiSpecimenIndex + abacaxiSpecimen.length);
 const typographyStandards = `<section class="type-standards" aria-labelledby="type-standards-title"><div class="type-standards-intro"><span class="eyebrow">Norma de uso · catálogo KERAI</span><h3 id="type-standards-title">La ligereza lleva la jerarquía.</h3></div><div class="type-weight-grid"><article class="type-weight-card type-weight-light"><div class="type-weight-label"><span>Titulares y descriptores</span><strong>300 · Light</strong></div><p class="type-weight-sample">El aplique cilíndrico de pared.</p><p class="type-weight-note">Peso preferente para titulares editoriales, mensajes de marca y descriptores de producto.</p></article><article class="type-weight-card"><div class="type-weight-label"><span>Texto de lectura</span><strong>400 · Regular</strong></div><p class="type-weight-sample type-weight-body">Aplique de pared de superficie, 39 mm × 40 mm. 8 W con CRI &gt;90.</p><p class="type-weight-note">Para párrafos, descripciones y explicaciones técnicas. Mantén una lectura cómoda en tamaños pequeños.</p></article><article class="type-weight-card"><div class="type-weight-label"><span>Datos y microtexto</span><strong>500 · Medium</strong></div><p class="type-weight-sample type-weight-data">W39 · 8 W · CRI &gt;90</p><p class="type-weight-note">Para etiquetas, navegación, acciones y encabezados de tablas. Reserva 600 para énfasis breve.</p></article></div><p class="type-weight-footnote">El logotipo KERAI parte de Cosi Azure Bold con un dibujo de letras modificado. En la web, usa Cosi Azure Bold para los nombres de producto; reserva Abacaxi para titulares editoriales, descripciones y datos.</p></section>`;
 const typekitGuide = `<div class="typekit-guide" aria-labelledby="typekit-guide-title"><div class="typekit-guide-heading"><div><span class="eyebrow">Integración web · Adobe Fonts / Typekit</span><h3 id="typekit-guide-title">Usar Abacaxi en proyectos web</h3></div></div><p>Añade el kit una vez dentro de <code>&lt;head&gt;</code> y aplica la familia desde tu CSS.</p><div class="typekit-code-grid"><section class="typekit-code-card"><div class="typekit-code-heading"><span class="eyebrow">HTML · dentro de &lt;head&gt;</span><button class="copy-button" data-copy="kerai-typekit-head">Copiar</button></div><pre><code id="kerai-typekit-head">${escapeHtml(typekitHeadCode)}</code></pre></section><section class="typekit-code-card"><div class="typekit-code-heading"><span class="eyebrow">CSS · aplicar Abacaxi</span><button class="copy-button" data-copy="kerai-typekit-css">Copiar</button></div><pre><code id="kerai-typekit-css">${escapeHtml(typekitCssCode)}</code></pre></section></div><p class="typekit-license-note">Para sitios de terceros, utiliza el proyecto de Adobe Fonts de su titular.</p></div>`;
 const typeSectionMarker = '</div>\n</div>\n<a class="next-chapter" href="#universo"';
@@ -57,12 +64,13 @@ const page = publishableText
   .replace('</body>', '  <script src="/brandbook-refinements.js"></script>\n</body>');
 if (page === publishableText) throw new Error('No s’han pogut inserir els ajustos del brandbook.');
 await writeFile(resolve(dist, 'index.html'), page, 'utf8');
-for (const name of ['404.html', '_headers', 'robots.txt', 'brandbook-refinements.css', 'brandbook-refinements.js', 'kerai-typekit-integration.txt', 'CosiAzureBold.zip']) {
+for (const name of ['404.html', '_headers', 'robots.txt', 'brandbook-refinements.css', 'brandbook-refinements.js', 'kerai-typekit-integration.txt', 'CosiAzureBold.zip', 'CosiAzure-Bold.woff2']) {
   await copyFile(resolve(root, 'static', name), resolve(dist, name));
 }
 console.log(`Fuente original conservada: ${html.length} bytes.`);
 console.log(`SHA-256 de origen: ${createHash('sha256').update(html).digest('hex')}`);
 console.log('Ajustos de marca, interacción y fotografías insertados en dist/.');
 console.log('Se omitió la lista final Base documental: no enlazaba a los documentos descargables.');
-console.log('La norma de pesos, los recursos Abacaxi / Typekit y la fuente Cosi Azure Bold se incluyen en Tipografía y Recursos.');
+console.log('La muestra de Cosi Azure precede a Abacaxi con el mismo alfabeto y cifras; su WOFF2 se incluye en la salida.');
+console.log('La norma de pesos y los recursos descargables se incluyen en Tipografía y Recursos.');
 

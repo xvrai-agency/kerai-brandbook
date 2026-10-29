@@ -21,7 +21,7 @@ Requiere Node.js 22 o superior. No hay dependencias de build.
 npm run build
 ```
 
-La salida es `dist/`, con `index.html`, `404.html`, `_headers`, `robots.txt`, los recursos `brandbook-refinements.*`, `kerai-typekit-integration.txt` y `CosiAzureBold.zip`. El HTML fuente original se conserva intacto. En la copia publicada, el build inserta las mejoras visuales e interactivas, las normas tipográficas y los recursos de fuentes descargables. También omite la lista final «Base documental», porque sus títulos no enlazan a los documentos descargables.
+La salida es `dist/`, con `index.html`, `404.html`, `_headers`, `robots.txt`, los recursos `brandbook-refinements.*`, `kerai-typekit-integration.txt`, `CosiAzureBold.zip` y el WOFF2 de muestra. El HTML fuente original se conserva intacto. En la copia publicada, el build inserta las mejoras visuales e interactivas, las muestras tipográficas, las normas y los recursos de fuentes descargables. También omite la lista final «Base documental», porque sus títulos no enlazan a los documentos descargables.
 
 ## Ajustes visuales e interacción
 
